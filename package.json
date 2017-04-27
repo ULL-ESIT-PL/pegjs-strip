@@ -9,7 +9,7 @@
   "scripts": {
     "test": "bin/cmd.js --clean-semantic test/removeleftrecursionwithintermidateactions2.pegjs",
     "t": "bin/cmd.js test/removeleftrecursionwithintermidateactions2.pegjs",
-    "compile": "pegjs -o src/parser.js grammer/pegjs-strip.pegjs"
+    "compile": "pegjs -o src/parser.js grammar/pegjs-strip.pegjs"
   },
   "keywords": [
     "pegjs"

@@ -17,7 +17,7 @@ var getopt = (new (require('node-getopt'))([
 getopt.setHelp(_T(function(){/*
 Usage: pegjs-strip [options] file
 
-Remove the Javascript code fragments from the specified PEG.js grammer file. 
+Remove the Javascript code fragments from the specified PEG.js grammar file. 
 
 Options:
 [[OPTIONS]]
