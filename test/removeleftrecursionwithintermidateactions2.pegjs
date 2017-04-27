@@ -1,4 +1,4 @@
-{ // Specify dependency instead in the comand line 
+{ /* Specify dependency instead in the comand line  */
   // option -d PEGStack:@ull-esit-pl/peg-stack (see Rakefile)
   // var PEGStack = require('@ull-esit-pl/peg-stack');
   var stack = new PEGStack();
