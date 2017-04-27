@@ -11,6 +11,7 @@ var getopt = (new (require('node-getopt'))([
 	['','keep-action','Keep actions.'],
 	['','keep-label','Keep labels.'],
 	['','keep-semantic-predicate','Keep semantic predicates.'],
+	['','clean-semantic','Clean semantic predicates.'],
 ])).bindHelp();
 
 getopt.setHelp(_T(function(){/*
@@ -52,6 +53,7 @@ try {
 		keepLabel:opt.options['keep-label']||false,
 		keepAction:opt.options['keep-action']||false,
 		keepSemanticPredicate:opt.options['keep-semantic-predicate']||false,
+		cleanSemanticPredicate:opt.options['clean-semantic']||false,
 	});
 	console.info(output);
 } catch (e) {

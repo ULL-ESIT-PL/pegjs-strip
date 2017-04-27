@@ -1,13 +1,15 @@
 {
-  "name": "pegjs-strip",
+  "name": "@ull-esit-pl/pegjs-strip",
   "version": "0.1.5",
-  "description": "A utility for removing Javascript code from the PEG.js grammer file.",
+  "description": "A utility for removing Javascript code from the PEG.js grammar file.",
   "bin": {
     "pegjs-strip": "bin/cmd.js"
   },
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "bin/cmd.js --clean-semantic test/removeleftrecursionwithintermidateactions2.pegjs",
+    "t": "bin/cmd.js test/removeleftrecursionwithintermidateactions2.pegjs",
+    "compile": "pegjs -o src/parser.js grammer/pegjs-strip.pegjs"
   },
   "keywords": [
     "pegjs"

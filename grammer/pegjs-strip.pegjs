@@ -85,8 +85,13 @@ SemanticPredicateExpression
   = operator:SemanticPredicateOperator __ code:CodeBlock {
     if(__options.keepSemanticPredicate) {
       return text();
-    } else {
-      return (operator == '&')?"&{return true;}":"!{return false;}";
+    } else if(__options.cleanSemanticPredicate) {
+      return "";
+    } 
+    else 
+    {
+      //return (operator == '&')?"&{return true;}":"!{return false;}";
+      return (operator == '&')?"&{}":"!{}";
     }
   }
 

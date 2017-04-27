@@ -2,7 +2,7 @@
 
 <img src="https://nodei.co/npm/pegjs-strip.png?downloads=true&stars=true" alt=""/>
 
-pegjs-strip is a utility for removing Javascript code fragments from the specified PEG.js grammer file.
+pegjs-strip is a utility for removing Javascript code fragments from the specified PEG.js grammar file.
 
 The utility removes all code-related statements such as the initializer block, actions and labels. The semantic predicate `&{<code>}` and `!{<code>}` are replaced with `&{return true;}` or `!{return false;}` respectively. 
 
@@ -15,86 +15,62 @@ Usage: pegjs-strip [options] file
 
 
 Options:
- -h, --help                     show this help.
-     --strip-comment            Strip comments.
-     --keep-initializer         Keep the initializer block.
-     --keep-action              Keep actions.
-     --keep-label               Keep labels.
-     --keep-semantic-predicate  Keep semantic predicates.
+  -h, --help                     show this help.
+      --strip-comment            Strip comments.
+      --keep-initializer         Keep the initializer block.
+      --keep-action              Keep actions.
+      --keep-label               Keep labels.
+      --keep-semantic-predicate  Keep semantic predicates.
+      --clean-semantic           Clean semantic predicates.
 ```
 
 ## Example
 
-The following grammer is from the PEG.js documentation.
+The following grammar is taken from [this set of examples](https://github.com/ULL-ESIT-PL-1617/pegjs-examples):
 
 ```
-start
-  = additive
+{ // Specify dependency instead in the comand line 
+  // option -d PEGStack:@ull-esit-pl/peg-stack (see Rakefile)
+  // var PEGStack = require('@ull-esit-pl/peg-stack');
+  var stack = new PEGStack();
+  var action = function() {
+    var [val1, op, val2] = stack.pop(3);
+    stack.log('Action!: '+`${val1} ${op} ${val2}`); 
+    stack.push(eval(`${val1} ${op} ${val2}`)); 
+  }
+}
 
-additive
-  = left:multiplicative "+" right:additive { return left + right; }
-  / multiplicative
-
-multiplicative
-  = left:primary "*" right:multiplicative { return left * right; }
-  / primary
-
-primary
-  = integer
-  / "(" additive:additive ")" { return additive; }
-
-integer "integer"
-  = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
+sum     = first:product &{ return stack.push(first); } 
+          (op:[+-] product:product 
+            &{ stack.push(op, product); return stack.make(action); })* 
+             { return stack.pop(); } 
+product = first:value &{ return stack.push(first); } 
+          (op:[*/] value:value 
+            &{ stack.push(op, value); return stack.make(action); })* 
+             { return stack.pop(); } 
+value   = number:$[0-9]+                     { return parseInt(number,10); }
+        / '(' sum:sum ')'                    { return sum; }
 ```
 
-To remove all the code in the grammer, just run the utility with the grammer file as the first argument. 
+To remove all the code in the grammar, just run the utility with the grammar file as the first argument. 
 The result is then written to the standard output as follows.
 
 ```
-$ pegjs-strip example.pegjs
+$ pegjs-strip --clean-semantic removeleftrecursionwithintermidateactions2.pegjs
 
-start
-  = additive
 
-additive
-  = multiplicative "+" additive
-  / multiplicative
+sum     = product
+          ([+-] product
+            )*
 
-multiplicative
-  = primary "*" multiplicative
-  / primary
+product = value
+          ([*/] value
+            )*
 
-primary
-  = integer
-  / "(" additive ")"
-
-integer "integer"
-  = [0-9]+
+value   = $[0-9]+
+        / '(' sum ')'
 ```
 
-`--keep-label` option is available to leave all labels in the resulting output.
-
-```
-$ pegjs-strip --keep-label example.pegjs 
-
-start
-  = additive
-
-additive
-  = left:multiplicative "+" right:additive
-  / multiplicative
-
-multiplicative
-  = left:primary "*" right:multiplicative
-  / primary
-
-primary
-  = integer
-  / "(" additive:additive ")"
-
-integer "integer"
-  = digits:[0-9]+
-```
 
 
 
