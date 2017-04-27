@@ -10,7 +10,7 @@
 }
 
 sum     = first:product &{ return stack.push(first); } 
-          (op:[+-] product:product 
+          (op:[+-] product:product  /* init, update, and return */
             &{ stack.push(op, product); return stack.make(action); })* 
              { return stack.pop(); } 
 product = first:value &{ return stack.push(first); } 

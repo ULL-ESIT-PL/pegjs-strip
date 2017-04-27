@@ -222,7 +222,7 @@ function peg$parse(input, options) {
       peg$c52 = peg$literalExpectation("\u2029", false),
       peg$c53 = peg$otherExpectation("comment"),
       peg$c54 = function() {
-          if(__options.keepComment) {
+          if(__options.stripComment) {
             return text();
           }
           return '';

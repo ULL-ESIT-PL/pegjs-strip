@@ -48,7 +48,7 @@ if(1<opt.argv.length) {
 try {
 	var input = require('fs').readFileSync(opt.argv[0],'utf-8');
 	var output = require("../src/index").process(input,{
-		keepComment:!(opt.options['strip-comment']||false),
+		stripComment:!(opt.options['strip-comment']||false),
 		keepInitializer:opt.options['keep-initializer']||false,
 		keepLabel:opt.options['keep-label']||false,
 		keepAction:opt.options['keep-action']||false,

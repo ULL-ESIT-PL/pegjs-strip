@@ -125,7 +125,7 @@ LineTerminatorSequence "end of line"
 
 Comment "comment"
   = ( MultiLineComment / SingleLineComment ) {
-    if(__options.keepComment) {
+    if(__options.stripComment) {
       return text();
     }
     return '';
