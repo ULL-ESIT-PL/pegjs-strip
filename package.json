@@ -16,10 +16,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/okaxaki/pegjs-strip"
+    "url": "https://github.com/ULL-ESIT-PL/pegjs-strip"
   },
-  "author": "Mitsutaka Okazaki",
-  "homepage": "https://github.com/okaxaki/pegjs-strip",
+  "author": "Casiano Rodriguez Leon",
+  "homepage": "https://github.com/ULL-ESIT-PL/pegjs-strip",
   "license": "ISC",
   "dependencies": {
     "node-getopt": "^0.2.3"
