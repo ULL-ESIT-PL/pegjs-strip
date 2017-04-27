@@ -2,7 +2,7 @@ pegjs-strip is a utility for removing Javascript code fragments from the specifi
 
 The utility removes all code-related statements such as the initializer block, actions and labels. The semantic predicate `&{<code>}` and `!{<code>}` are replaced with `&{}` or `!{}` respectively. 
 
-By default, the utility does not strip comment blocks. To remove comments, `--strip-comment` option can be used.
+By default, the utility strips comment blocks. To keep comments, `--strip-comment` option can be used.
 
 ## Usage
 
@@ -24,7 +24,7 @@ Options:
 
 The following grammar is taken from [this set of examples](https://github.com/ULL-ESIT-PL-1617/pegjs-examples):
 
-```
+```js
 { // Specify dependency instead in the comand line 
   // option -d PEGStack:@ull-esit-pl/peg-stack (see Rakefile)
   // var PEGStack = require('@ull-esit-pl/peg-stack');
@@ -51,10 +51,12 @@ value   = number:$[0-9]+                     { return parseInt(number,10); }
 To remove all the code in the grammar, just run the utility with the grammar file as the first argument. 
 The result is then written to the standard output as follows.
 
-```
+```bash
 $ pegjs-strip --clean-semantic removeleftrecursionwithintermidateactions2.pegjs
+```
+This will produce:
 
-
+```js
 sum     = product
           ([+-] product
             )*
